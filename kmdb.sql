@@ -112,13 +112,51 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS movie_cast;
+
 
 -- Create new tables, according to your domain model
 -- TODO!
+CREATE TABLE studios (
+    studio_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE movies (
+    movie_id INTEGER PRIMARY KEY,
+    title TEXT,
+    year_released INTEGER,
+    mpaa_rating TEXT,
+    studio_id INTEGER,
+    FOREIGN KEY (studio_id) REFERENCES studios(studio_id)
+);
+
+CREATE TABLE actors (
+    actor_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE movie_cast (
+    movie_id INTEGER,
+    actor_id INTEGER,
+    character_name TEXT
+    PRIMARY KEY (movie_id, actor_id),
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
+    FOREIGN KEY (actor_id) REFERENCES actors(actor_id)
+);
+
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+
+
+
+
 
 -- Prints a header for the movies output
 .print "Movies"
